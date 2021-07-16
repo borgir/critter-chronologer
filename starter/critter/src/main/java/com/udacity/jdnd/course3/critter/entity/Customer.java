@@ -1,8 +1,10 @@
 package com.udacity.jdnd.course3.critter.entity;
 
 import javax.persistence.*;
-import java.util.ArrayList;
+import java.util.List;
 
+
+@Entity(name = "customer")
 public class Customer {
 
 
@@ -11,19 +13,34 @@ public class Customer {
     private Long id;
 
 
-    @Column(name = "name", length = 50)
+    @Column(
+            name = "name",
+            length = 50,
+            nullable = false
+    )
     private String name;
 
 
-    @Column(name = "phone_number", length = 20)
+    @Column(
+            name = "phone_number",
+            length = 20,
+            nullable = false
+    )
     private String phoneNumber;
 
 
-    @Column(name = "notes", length = 1000)
+    @Column(
+            name = "notes",
+            nullable = true,
+            columnDefinition = "TEXT"
+    )
     private String notes;
 
 
-    @OneToMany(targetEntity = Pet.class, cascade = CascadeType.ALL)
+    @OneToMany(
+            targetEntity = Pet.class,
+            cascade = CascadeType.ALL
+    )
     private List<Pet> pets;
 
 
@@ -101,20 +118,20 @@ public class Customer {
 
 
     public void addPet(Pet pet) {
-        this.petIds.add(pet);
+        this.pets.add(pet);
     }
 
 
 
 
-    public List<Pet> getPetIds() {
-        return petIds;
+    public List<Pet> getPets() {
+        return pets;
     }
 
 
 
 
-    public void setPetIds(List<Pet> pets) {
+    public void setPets(List<Pet> pets) {
         this.pets = pets;
     }
 
