@@ -11,18 +11,13 @@ import java.util.List;
 @Repository
 public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
 
-    @Query("SELECT s.* FROM schedule s INNER JOIN schedule_pets AS sp on sp.schedule_id = s.id WHERE sp.pets_id = :petId")
-    List<Schedule> findScheduleForPet(@Param("petId") Long petId);
+    @Query("SELECT s FROM Schedule s JOIN s.pets p WHERE p.id = :petId")
+    List<Schedule> findPetSchedule(@Param("petId") Long petId);
 
-    @Query("SELECT s.* FROM schedule s INNER JOIN schedule_employees AS se on se.schedule_id = s.id WHERE se.employees_id = :employeeId")
-    List<Schedule> findScheduleForEmployee(@Param("employeeId") Long employeeId);
+    @Query("SELECT s FROM Schedule s JOIN s.employees e WHERE e.id = :employeeId")
+    List<Schedule> findEmployeeSchedule(@Param("employeeId") Long employeeId);
 
-    @Query("SELECT s.* " +
-            "FROM schedule s " +
-            "INNER JOIN schedule_pets AS sp on sp.schedule_id = s.id " +
-            "INNER JOIN customer_pets AS cp ON cp.pets_id = sp.pets_id" +
-            "INNER JOIN customer AS c ON c.id = cp.customer_id" +
-            "WHERE c.id = :customerId")
-    List<Schedule> findScheduleForCustomer(@Param("customerId") Long customerId);
+    @Query("SELECT s from Schedule s JOIN s.pets p JOIN p.owner o WHERE o.id=:customerId")
+    List<Schedule> findCustomerSchedule(@Param("customerId") Long customerId);
 
 }

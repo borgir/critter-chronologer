@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
-    @Query("SELECT c.* FROM customer AS c INNER JOIN customer_pets AS cp ON cp.customer_id = c.id WHERE cp.pets_id = :id")
+    @Query("SELECT c FROM customer c JOIN c.pets p WHERE p.id = :id")
     Customer findAllCustomerByPetId(@Param("id") long petId);
 
 }

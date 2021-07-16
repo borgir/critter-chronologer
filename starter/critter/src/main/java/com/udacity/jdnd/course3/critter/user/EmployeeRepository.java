@@ -13,7 +13,7 @@ import java.util.List;
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
-    @Query("SELECT e.* FROM employee AS e INNER JOIN employee_days_available AS eda ON eda.days_available = :day GROUP BY e.id")
+    @Query("SELECT e FROM Employee e WHERE :day MEMBER OF e.daysAvailable")
     List<Employee> findAllEmployeesByDaysAvailable(@Param("day") DayOfWeek day);
 
 }
