@@ -36,21 +36,12 @@ public class Employee {
     private Set<DayOfWeek> daysAvailable;
 
 
-    @ManyToOne
-    @JoinColumn(
-            name = "id_schedule",
-            nullable = true
-    )
-    private Schedule schedule;
 
 
-
-
-    public Employee(String name, Set<EmployeeSkill> skills, Set<DayOfWeek> daysAvailable, Schedule schedule) {
+    public Employee(String name, Set<EmployeeSkill> skills, Set<DayOfWeek> daysAvailable) {
         this.name = name;
         this.skills = skills;
         this.daysAvailable = daysAvailable;
-        this.schedule = schedule;
     }
 
 
@@ -114,18 +105,5 @@ public class Employee {
         this.daysAvailable = daysAvailable;
     }
 
-
-
-
-    public Schedule getSchedule() {
-        return schedule;
-    }
-
-
-
-
-    public void setSchedule(Schedule schedule) {
-        this.schedule = schedule;
-    }
 
 }
