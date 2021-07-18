@@ -1,9 +1,7 @@
 package com.udacity.jdnd.course3.critter.user;
 
 import com.udacity.jdnd.course3.critter.entity.Employee;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import javax.transaction.Transactional;
 import java.time.DayOfWeek;
 import java.util.*;
@@ -13,7 +11,6 @@ import java.util.*;
 public class EmployeeServiceImpl implements EmployeeService {
 
 
-    @Autowired
     private EmployeeRepository employeeRepository;
 
 
