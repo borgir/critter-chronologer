@@ -22,14 +22,17 @@ public class Employee {
     private String name;
 
 
-    @ElementCollection
+    @ElementCollection(targetClass = EmployeeSkill.class)
+    @Enumerated(EnumType.STRING)
     @Column(
-            name = "skills"
+            name = "skills",
+            columnDefinition = "varchar(50)"
     )
     private Set<EmployeeSkill> skills;
 
 
-    @ElementCollection
+    @ElementCollection(targetClass = DayOfWeek.class)
+    @Enumerated(EnumType.STRING)
     @Column(
             name = "days_available"
     )
