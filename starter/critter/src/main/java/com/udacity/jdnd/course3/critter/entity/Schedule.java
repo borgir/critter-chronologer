@@ -13,7 +13,7 @@ public class Schedule {
 
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
 

@@ -9,7 +9,7 @@ public class Customer {
 
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
 
@@ -38,6 +38,8 @@ public class Customer {
 
 
     @OneToMany(
+            mappedBy = "owner",
+            fetch = FetchType.LAZY,
             targetEntity = Pet.class,
             cascade = CascadeType.ALL
     )

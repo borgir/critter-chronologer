@@ -12,7 +12,7 @@ public class Pet {
 
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
 
@@ -46,8 +46,11 @@ public class Pet {
     private String notes;
 
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_customer")
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name="customer_pets",
+            joinColumns={@JoinColumn(name="id_pet")},
+            inverseJoinColumns={@JoinColumn(name="id_customer")}
+    )
     private Customer owner;
 
 

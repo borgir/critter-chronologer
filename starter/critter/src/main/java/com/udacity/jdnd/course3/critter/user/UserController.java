@@ -60,7 +60,7 @@ public class UserController {
      * @param customerDTO
      * @return
      */
-    private Customer convertDTOToCustomer(CustomerDTO customerDTO){
+    private Customer convertDTOToCustomer(CustomerDTO customerDTO) {
         Customer customer = new Customer();
         BeanUtils.copyProperties(customerDTO, customer);
         List<Long> _pets = customerDTO.getPetIds();
@@ -107,7 +107,7 @@ public class UserController {
      * @return
      */
     @GetMapping("/customer")
-    public List<CustomerDTO> getAllCustomers(){
+    public List<CustomerDTO> getAllCustomers() {
         List<Customer> customerList = customerService.getAllCustomers();
         List<CustomerDTO> customerDTOList = new ArrayList<>();
 
@@ -129,9 +129,14 @@ public class UserController {
      * @return
      */
     @GetMapping("/customer/pet/{petId}")
-    public CustomerDTO getOwnerByPet(@PathVariable long petId){
-        Customer customer = customerService.getCustomerByPet(petId);
+    public CustomerDTO getOwnerByPet(@PathVariable long petId) {
+
+        Pet pet = petService.getPet(petId);
+        Customer customer = pet.getCustomer();
+
         return convertCustomerToCustomerDTO(customer);
+
+     
     }
 
 
@@ -157,7 +162,7 @@ public class UserController {
      * @param employee
      * @return employeeDTO
      */
-    private EmployeeDTO convertEmployeeToEmployeeDTO (Employee employee){
+    private EmployeeDTO convertEmployeeToEmployeeDTO (Employee employee) {
         EmployeeDTO employeeDTO = new EmployeeDTO();
         BeanUtils.copyProperties(employee, employeeDTO);
         return employeeDTO;
@@ -171,7 +176,7 @@ public class UserController {
      * @param employeeDTO
      * @return employee
      */
-    private Employee convertEmployeeDTOToEmployee (EmployeeDTO employeeDTO){
+    private Employee convertEmployeeDTOToEmployee (EmployeeDTO employeeDTO) {
         Employee employee = new Employee();
         BeanUtils.copyProperties(employeeDTO, employee);
         return employee;
@@ -206,7 +211,7 @@ public class UserController {
 
 
 
-    
+
     /**
      *
      * @param employeeDTO
