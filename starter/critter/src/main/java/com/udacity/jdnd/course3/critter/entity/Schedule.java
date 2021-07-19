@@ -17,11 +17,11 @@ public class Schedule {
     private long id;
 
 
-    @ManyToMany(targetEntity = Employee.class)
+    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private List<Employee> employees;
 
 
-    @ManyToMany(targetEntity = Pet.class)
+    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private List<Pet> pets;
 
 
@@ -34,9 +34,11 @@ public class Schedule {
 
     @Column(
             name = "activities",
-            nullable = false
+            nullable = false,
+            columnDefinition = "varchar(50)"
     )
     @ElementCollection
+    @Enumerated(EnumType.STRING)
     private Set<EmployeeSkill> activities;
 
 

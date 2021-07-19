@@ -266,6 +266,8 @@ public class CritterFunctionalTest {
     private static PetDTO createPetDTO() {
         PetDTO petDTO = new PetDTO();
         petDTO.setName("TestPet");
+        LocalDate date = LocalDate.of(2019, 12, 16);
+        petDTO.setBirthDate(date);
         petDTO.setType(PetType.CAT);
         return petDTO;
     }

@@ -34,7 +34,7 @@ public class Pet {
 
     @Column(
             name = "birth_date",
-            nullable = false
+            nullable = true
     )
     private LocalDate birthDate;
 
@@ -46,10 +46,10 @@ public class Pet {
     private String notes;
 
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name="customer_pets",
-            joinColumns={@JoinColumn(name="id_pet")},
-            inverseJoinColumns={@JoinColumn(name="id_customer")}
+    @ManyToOne(
+            targetEntity = Customer.class,
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL
     )
     private Customer owner;
 

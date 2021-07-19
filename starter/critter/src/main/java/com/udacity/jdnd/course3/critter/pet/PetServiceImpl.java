@@ -1,6 +1,8 @@
 package com.udacity.jdnd.course3.critter.pet;
 
+import com.udacity.jdnd.course3.critter.entity.Customer;
 import com.udacity.jdnd.course3.critter.entity.Pet;
+import com.udacity.jdnd.course3.critter.user.CustomerRepository;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
@@ -13,16 +15,29 @@ public class PetServiceImpl implements PetService {
 
     PetRepository petRepository;
 
+    CustomerRepository customerRepository;
 
-    public PetServiceImpl(PetRepository petRepository) {
+
+    public PetServiceImpl(PetRepository petRepository, CustomerRepository customerRepository) {
         this.petRepository = petRepository;
+        this.customerRepository = customerRepository;
     }
 
 
 
 
     public Pet savePet(Pet pet) {
-        return petRepository.save(pet);
+
+        // credits: https://knowledge.udacity.com/questions/496750
+
+        Pet savedPet = petRepository.save(pet);
+        Customer customer = savedPet.getCustomer();
+        if (customer != null){
+            customer.getPets().add(savedPet);
+            customerRepository.save(customer);
+        }
+        return savedPet;
+
     }
 
 
