@@ -8,12 +8,15 @@ import com.udacity.jdnd.course3.critter.pet.PetType;
 import com.udacity.jdnd.course3.critter.schedule.ScheduleController;
 import com.udacity.jdnd.course3.critter.schedule.ScheduleDTO;
 import com.udacity.jdnd.course3.critter.user.*;
+import org.h2.tools.Server;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.SQLException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.List;
@@ -30,7 +33,7 @@ import java.util.stream.IntStream;
  * These tests should all pass once the project is complete.
  */
 @Transactional
-@SpringBootTest(classes = CritterApplication.class)
+@SpringBootTest(classes = {CritterApplication.class})
 public class CritterFunctionalTest {
 
     @Autowired
@@ -41,6 +44,12 @@ public class CritterFunctionalTest {
 
     @Autowired
     private ScheduleController scheduleController;
+
+    @BeforeAll
+    static void initTest() throws SQLException {
+        Server.createWebServer("-web", "-webAllowOthers", "-webPort", "8085","-webDaemon")
+                .start();
+    }
 
     @Test
     public void testCreateCustomer(){
