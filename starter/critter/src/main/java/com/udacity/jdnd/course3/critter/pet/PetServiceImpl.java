@@ -6,6 +6,7 @@ import com.udacity.jdnd.course3.critter.user.CustomerRepository;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Transactional
@@ -32,7 +33,7 @@ public class PetServiceImpl implements PetService {
 
         Pet savedPet = petRepository.save(pet);
         Customer customer = savedPet.getCustomer();
-        if (customer != null){
+        if (!Objects.isNull(customer)){
             customer.getPets().add(savedPet);
             customerRepository.save(customer);
         }
